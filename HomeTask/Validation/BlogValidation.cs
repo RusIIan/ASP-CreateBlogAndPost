@@ -10,5 +10,7 @@ namespace HomeTask.Validation
         {
             RuleFor(x => x.Description).Length(0,25);
         }
+
+        
     }
 }

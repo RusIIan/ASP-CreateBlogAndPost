@@ -45,7 +45,7 @@ public class BlogController : ControllerBase
         try
         {
             _logger.LogInformation($"{id} obtained from base date");
-            var blogUpdate = await _unitOfWork.blogRepository.Find(id);
+            var blogUpdate = await _unitOfWork.blogRepository.GetFirst(b=>b.Id==id);
             blogUpdate.Name = blogDto.Name;
             blogUpdate.Description = blogDto.Description;
             await _unitOfWork.blogRepository.Update(blogUpdate);
@@ -65,7 +65,7 @@ public class BlogController : ControllerBase
         {
             _logger.LogInformation($"{id} obtained from base date");
 
-            var blogUpdate = await _unitOfWork.blogRepository.Find(id);
+            var blogUpdate = await _unitOfWork.blogRepository.GetFirst(b=>b.Id==id);
             await _unitOfWork.blogRepository.Delete(blogUpdate);
             await _unitOfWork.Commit();
             return Ok(_unitOfWork);

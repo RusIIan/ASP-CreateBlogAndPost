@@ -50,7 +50,7 @@ namespace HomeTask.Controllers
             try
             {
                 _logger.LogInformation($"This post is in the data base {id}");
-                var postUpdate = await _unitOfWork.postRepository.Find(id);
+                var postUpdate = await _unitOfWork.postRepository.GetFirst(b=>b.Id==id);
                 postUpdate.Subtitle = post.Subtitle;
                 postUpdate.Title = post.Title;
                 postUpdate.Content = post.Content;
@@ -72,7 +72,7 @@ namespace HomeTask.Controllers
             try
             {
                 _logger.LogInformation($"{id} obtained from base date");
-                var postDelete = await _unitOfWork.postRepository.Find(id);
+                var postDelete = await _unitOfWork.postRepository.GetFirst(b => b.Id == id);
                 await _unitOfWork.postRepository.Delete(postDelete);
                 await _unitOfWork.Commit();
                 return Ok(postDelete);
